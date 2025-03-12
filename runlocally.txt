@@ -1,0 +1,84 @@
+HOW TO RUN THIS LOCALLY
+
+Pre-requisites:
+--------------
+- Python 3.8+ installed (with pip)
+- Node.js & npm installed
+- Git installed
+- (Optional) MetaMask browser extension for blockchain interactions
+
+Project Structure (from project root "zero-day-sentinel"):
+---------------------------------------------------------
+zero-day-sentinel/
+├── backend/                # Flask API & anomaly detection
+├── blockchain/             # Solidity smart contract & Hardhat config
+└── frontend/my-react-app/  # React.js app with Web3.js integration
+
+Step-by-Step Instructions:
+---------------------------
+
+1. Run the Flask Backend:
+   a. Open a terminal and navigate to the backend directory:
+      cd zero-day-sentinel/backend
+   b. Create a virtual environment:
+      python -m venv venv
+   c. Activate the virtual environment:
+      - On macOS/Linux: source venv/bin/activate
+      - On Windows: venv\Scripts\activate
+   d. Install Python dependencies:
+      pip install -r requirements.txt
+   e. Start the Flask server:
+      python app.py
+   f. The Flask API will be accessible at: http://localhost:5000
+
+2. Run the Blockchain Node and Deploy the Smart Contract:
+   a. Open a new terminal and navigate to the blockchain directory:
+      cd zero-day-sentinel/blockchain
+   b. Install Node dependencies (if not already installed):
+      npm install
+   c. Start the Hardhat local blockchain node (this will simulate a local Ethereum network):
+      npx hardhat node
+      (Keep this terminal running as it acts as your local blockchain)
+   d. Open another terminal (while the Hardhat node is running), navigate to the blockchain directory:
+      cd zero-day-sentinel/blockchain
+   e. Deploy the smart contract to the local network:
+      npx hardhat run scripts/deploy.js --network localhost
+   f. Note the contract address output by the deployment script. You’ll need to update this in the React app configuration file (frontend/my-react-app/src/web3Config.js).
+
+3. Run the React Frontend:
+   a. Open a new terminal and navigate to the React app directory:
+      cd zero-day-sentinel/frontend/my-react-app
+   b. Install Node dependencies (if not already installed):
+      npm install
+   c. Start the React development server:
+      npm start
+   d. The React app will launch at: http://localhost:3000
+
+4. Interacting with the System:
+   - Open your browser and go to http://localhost:3000 to view the dashboard.
+   - The React app will:
+       • Call the Flask API at http://localhost:5000/predict for anomaly detection results.
+       • Connect to your local blockchain (via MetaMask) to interact with the smart contract.
+   - Ensure MetaMask is configured to connect to your local network at http://127.0.0.1:8545.
+
+5. (Optional) Set Up GitHub for Collaboration:
+   a. In your project root (zero-day-sentinel), initialize Git (if not done already):
+      git init
+   b. Add all project files:
+      git add .
+   c. Commit the changes:
+      git commit -m "Initial commit with backend, blockchain, and frontend setup"
+   d. Add your GitHub repository as a remote:
+      git remote add origin https://github.com/your-username/zero-day-sentinel.git
+   e. Push your code:
+      git branch -M main
+      git push -u origin main
+   f. Invite your collaborators via the repository’s settings on GitHub.
+
+Troubleshooting Tips:
+---------------------
+- Ensure each service (Flask, Hardhat node, React) is running in its own terminal.
+- If you update the smart contract and redeploy, update the contract address in the React app (src/web3Config.js).
+- Check that MetaMask is connected to the local blockchain network (http://127.0.0.1:8545).
+
+That’s it! You now have a fully working local setup for the Zero-Day Sentinel system.
